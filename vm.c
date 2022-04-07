@@ -402,11 +402,9 @@ mprotect(uint addr, int len)
     pte_t *pte;
 
     pte = walkpgdir(currentproc->pgdir, (void*) i, 0);
-
+    
     if(pte != 0)
       *pte &= ~PTE_W;
-
-    addr += PGSIZE;
   }
   
   lcr3(V2P(currentproc->pgdir));
