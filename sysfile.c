@@ -442,3 +442,42 @@ sys_pipe(void)
   fd[1] = fd1;
   return 0;
 }
+
+// Catch errors?
+int
+sys_mprotect(void)
+{
+  // pass arguments
+  void *addr;
+  int len;
+
+  // check for errors
+  if(argptr(0, (void*)&addr, sizeof(void *)) < 0)
+    return -1;
+  if(argint(1, &len) < 0)
+    return -1;
+  // if page not aligned
+  if(((uint)addr) % PGSIZE != 0)
+    return -1;
+  
+  return mprotect((uint) addr, len);
+}
+
+int
+sys_munprotect(void)
+{
+  // pass arguments
+  void *addr;
+  int len;
+
+  // check for errors
+  if(argptr(0, (void*)&addr, sizeof(void *)) < 0)
+    return -1;
+  if(argint(1, &len) < 0)
+    return -1;
+  // if page not aligned
+  if(((uint)addr) % PGSIZE != 0)
+    return -1;
+
+  return munprotect((uint) addr, len);
+}
