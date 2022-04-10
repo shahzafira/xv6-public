@@ -396,6 +396,7 @@ int
 mprotect(uint addr, int len)
 {
   struct proc *currentproc = myproc();
+  // rounds address down to a multiple of PGSIZE
   addr = PGROUNDDOWN(addr);
 
   for(int i = (int) addr; i < (int) addr + (len) *PGSIZE; i += PGSIZE) {
@@ -412,6 +413,7 @@ mprotect(uint addr, int len)
   return 0;
 }
 
+// same as mprotect but change the protection level
 int
 munprotect(uint addr, int len)
 {
