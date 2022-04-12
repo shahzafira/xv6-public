@@ -401,7 +401,7 @@ mprotect(void* addr, int len)
 
     pte = walkpgdir(currentproc->pgdir, (void*) i, 0);
     
-    if(pte != 0)
+    if(pte && ((*pte & PTE_U) != 0) && ((*pte & PTE_P) != 0))
       *pte &= ~PTE_W;
   }
   
@@ -421,7 +421,7 @@ munprotect(void* addr, int len)
 
     pte = walkpgdir(currentproc->pgdir, (void*) i, 0);
 
-    if(pte != 0)
+    if(pte && ((*pte & PTE_U) != 0) && ((*pte & PTE_P) != 0))
       *pte |= PTE_W;
 
     addr += PGSIZE;
