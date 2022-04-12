@@ -395,6 +395,10 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
 int
 mprotect(void* addr, int len)
 {
+  if(len <= 0){
+    return -1;
+  }
+
   struct proc *currentproc = myproc();
   for(int i = (int) addr; i < (int) addr + (len) *PGSIZE; i += PGSIZE) {
     pte_t *pte;
@@ -414,6 +418,9 @@ mprotect(void* addr, int len)
 int
 munprotect(void* addr, int len)
 {
+  if(len <= 0)
+    return -1;
+
   struct proc *currentproc = myproc();
 
   for(int i = (int) addr; i < (int) addr + (len) *PGSIZE; i += PGSIZE) {
