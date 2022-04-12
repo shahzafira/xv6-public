@@ -79,6 +79,10 @@ trap(struct trapframe *tf)
     break;
   
   case T_PGFLT:
+    if(myproc() == 0 || (tf->cs&3) == 0){
+      cprintf("Page Fault \n \n");
+      panic("trap");
+    }
     // kill process
     cprintf("Page Fault \n \n");
     myproc()->killed = 1;
