@@ -393,12 +393,9 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
 }
 
 int
-mprotect(uint addr, int len)
+mprotect(void* addr, int len)
 {
   struct proc *currentproc = myproc();
-  // rounds address down to a multiple of PGSIZE
-  addr = PGROUNDDOWN(addr);
-
   for(int i = (int) addr; i < (int) addr + (len) *PGSIZE; i += PGSIZE) {
     pte_t *pte;
 
@@ -415,10 +412,9 @@ mprotect(uint addr, int len)
 
 // same as mprotect but change the protection level
 int
-munprotect(uint addr, int len)
+munprotect(void* addr, int len)
 {
   struct proc *currentproc = myproc();
-  addr = PGROUNDDOWN(addr);
 
   for(int i = (int) addr; i < (int) addr + (len) *PGSIZE; i += PGSIZE) {
     pte_t *pte;

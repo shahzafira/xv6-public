@@ -460,7 +460,7 @@ sys_mprotect(void)
   if(((uint)addr) % PGSIZE != 0)
     return -1;
   
-  return mprotect((uint) addr, len);
+  return mprotect((void*) addr, len);
 }
 
 int
@@ -479,5 +479,5 @@ sys_munprotect(void)
   if(((uint)addr) % PGSIZE != 0)
     return -1;
 
-  return munprotect((uint) addr, len);
+  return munprotect((void*) addr, len);
 }
