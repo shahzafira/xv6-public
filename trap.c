@@ -78,15 +78,9 @@ trap(struct trapframe *tf)
     lapiceoi();
     break;
   
-  // for debugging
   case T_PGFLT:
-    if(myproc() == 0 || (tf->cs&3) == 0) {
-      cprintf("Page Fault");
-      panic("trap");
-    }
-
     // kill process
-    cprintf("Seg Fault");
+    cprintf("Page Fault \n \n");
     myproc()->killed = 1;
     break;
 
