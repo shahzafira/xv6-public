@@ -191,7 +191,6 @@ UPROGS := \
 	_usertests\
 	_wc\
 	_zombie\
-	_mprottest\
 	_mprotecttest\
 	_munprotecttest\
 
