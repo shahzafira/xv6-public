@@ -454,7 +454,7 @@ sys_mprotect(void)
   // check for errors
   if(argptr(0, (void*)&addr, sizeof(void *)) < 0)
     return -1;
-  if(argint(1, &len) < 0)
+  if(argint(1, &len) < 0 || len <= 0)
     return -1;
   // if page not aligned
   if(((uint)addr) % PGSIZE != 0)
@@ -473,7 +473,7 @@ sys_munprotect(void)
   // check for errors
   if(argptr(0, (void*)&addr, sizeof(void *)) < 0)
     return -1;
-  if(argint(1, &len) < 0)
+  if(argint(1, &len) < 0 || len <= 0)
     return -1;
   // if page not aligned
   if(((uint)addr) % PGSIZE != 0)
